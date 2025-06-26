@@ -1,6 +1,8 @@
 // src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Feeding from "./pages/Feeding";
@@ -12,9 +14,11 @@ export default function App() {
     <AuthProvider>
       <Router>
         <Routes>
+          {/* Public pages */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
 
-          {/* Admin + Researcher */}
+          {/* Protected pages */}
           <Route
             path="/dashboard"
             element={
@@ -23,8 +27,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* Zookeeper only */}
           <Route
             path="/feeding"
             element={
@@ -33,8 +35,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* Vet only */}
           <Route
             path="/medical"
             element={
@@ -44,8 +44,8 @@ export default function App() {
             }
           />
 
-          {/* Default fallback */}
-          <Route path="*" element={<Login />} />
+          {/* Fallback */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </Router>
     </AuthProvider>
