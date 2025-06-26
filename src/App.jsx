@@ -1,7 +1,10 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Feeding from "./pages/Feeding";
+import Medical from "./pages/Medical";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 export default function App() {
@@ -11,26 +14,37 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
 
-          {/* Any logged-in user */}
+          {/* Admin + Researcher */}
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allow={["admin", "researcher"]}>
                 <Dashboard />
               </ProtectedRoute>
             }
           />
 
-          {/* Admin-only example */}
-          {/* <Route
-            path="/animals/new"
+          {/* Zookeeper only */}
+          <Route
+            path="/feeding"
             element={
-              <ProtectedRoute allow={['admin']}>
-                <AddAnimalPage />
+              <ProtectedRoute allow={["zookeeper"]}>
+                <Feeding />
               </ProtectedRoute>
             }
-          /> */}
+          />
 
+          {/* Vet only */}
+          <Route
+            path="/medical"
+            element={
+              <ProtectedRoute allow={["vet"]}>
+                <Medical />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Default fallback */}
           <Route path="*" element={<Login />} />
         </Routes>
       </Router>

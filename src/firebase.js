@@ -5,7 +5,7 @@ import { getFirestore } from "firebase/firestore";
 
 // 🔐 Replace with your Firebase project's config
 const firebaseConfig = {
-  apiKey: "AIzaSyDaNe6DRHCrmbATCpUsTWKgmsYKe5R9Hgo",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "zookeeper-hub.firebaseapp.com",
   projectId: "zookeeper-hub",
   storageBucket: "zookeeper-hub.firebasestorage.app",
