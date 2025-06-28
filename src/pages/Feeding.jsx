@@ -1,5 +1,6 @@
 // src/pages/Feeding.jsx
 import useAuth from "../hooks/useAuth";
+import FeedingForm from "../components/FeedingForm";
 import { useNavigate } from "react-router-dom";
 
 export default function Feeding() {
@@ -19,6 +20,11 @@ export default function Feeding() {
       <p className="mb-6">🔐 Role: {role}</p>
 
       {/* Feeding log interface can be added here */}
+
+      <div className="min-h-screen bg-gray-100 p-4">
+      <h1 className="text-3xl font-semibold text-center text-green-800">Zookeeper Dashboard</h1>
+      <FeedingForm />
+      </div>           
 
       <button
         onClick={handleLogout}
