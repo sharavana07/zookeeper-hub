@@ -12,6 +12,7 @@ import Layout from "./components/Layout";
 import AnimalList from "./pages/AnimalList";
 import AnimalForm from "./components/AnimalForm";
 import UsersPage from "./pages/UsersPage";
+import MedicalFormPage from "./pages/MedicalFormPage";
 
 export default function App() {
   return (
@@ -99,7 +100,8 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
+                                     <Route path="/medical" element={<Medical />} />
+                                                       <Route path="/medical/new" element={<MedicalFormPage />} />
           {/* Fallback */}
           <Route path="*" element={<Home />} />
         </Routes>
