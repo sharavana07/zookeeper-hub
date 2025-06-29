@@ -1,5 +1,5 @@
 // src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 
 import Home from "./pages/Home";
@@ -7,103 +7,106 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Feeding from "./pages/Feeding";
 import Medical from "./pages/Medical";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import Layout from "./components/Layout";
+import Research from "./pages/Research";
 import AnimalList from "./pages/AnimalList";
 import AnimalForm from "./components/AnimalForm";
 import UsersPage from "./pages/UsersPage";
 import MedicalFormPage from "./pages/MedicalFormPage";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 export default function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Public pages */}
+          {/* ────────── Public routes ────────── */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
 
-          {/* Protected pages */}
+          {/* ────────── Admin + Researcher ────────── */}
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute allow={["admin", "researcher"]}>
-                <Layout>
-                  <Dashboard />
-                </Layout>
+              <ProtectedRoute allow={["admin"]}>
+                <Dashboard />
               </ProtectedRoute>
             }
           />
-          
+
+          {/* ────────── Researcher only ────────── */}
+          <Route
+            path="/research"
+            element={
+              <ProtectedRoute allow={["researcher"]}>
+                <Research />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* ────────── Zookeeper ────────── */}
           <Route
             path="/feeding"
             element={
               <ProtectedRoute allow={["admin", "zookeeper"]}>
-                <Layout>
-                  <Feeding />
-                </Layout>
+                <Feeding />
               </ProtectedRoute>
             }
           />
-          
+
+          {/* ────────── Vet ────────── */}
           <Route
             path="/medical"
             element={
               <ProtectedRoute allow={["admin", "vet"]}>
-                <Layout>
-                  <Medical />
-                </Layout>
+                <Medical />
               </ProtectedRoute>
             }
           />
-          
+          <Route
+            path="/medical/new"
+            element={
+              <ProtectedRoute allow={["admin", "vet"]}>
+                <MedicalFormPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* ────────── Admin only ────────── */}
           <Route
             path="/animals"
             element={
               <ProtectedRoute allow={["admin"]}>
-                <Layout>
-                  <AnimalList />
-                </Layout>
+                <AnimalList />
               </ProtectedRoute>
             }
           />
-          
           <Route
             path="/animals/new"
             element={
               <ProtectedRoute allow={["admin"]}>
-                <Layout>
-                  <AnimalForm />
-                </Layout>
+                <AnimalForm />
               </ProtectedRoute>
             }
           />
-          
           <Route
             path="/animals/:id/edit"
             element={
               <ProtectedRoute allow={["admin"]}>
-                <Layout>
-                  <AnimalForm isEdit />
-                </Layout>
+                <AnimalForm isEdit />
               </ProtectedRoute>
             }
           />
-          
           <Route
             path="/users"
             element={
               <ProtectedRoute allow={["admin"]}>
-                <Layout>
-                  <UsersPage />
-                </Layout>
+                <UsersPage />
               </ProtectedRoute>
             }
           />
-                                     <Route path="/medical" element={<Medical />} />
-                                                       <Route path="/medical/new" element={<MedicalFormPage />} />
-          {/* Fallback */}
-          <Route path="*" element={<Home />} />
+
+          {/* ────────── Fallback ────────── */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </AuthProvider>
