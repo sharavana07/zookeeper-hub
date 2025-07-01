@@ -1,12 +1,28 @@
 //src/pages/Research.jsx
 import { useState } from "react";
+import { LogOut } from "lucide-react";
 import ResearchPage from "./ResearchPage";
+import useAuth from "../hooks/useAuth";
 
 export default function Research() {
   const [tab, setTab] = useState("animals");
+  const { logout } = useAuth();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 relative overflow-hidden">
+      {/* Logout Button - positioned absolutely in top-right */}
+      <button
+        onClick={logout}
+        className="absolute top-6 right-6 z-20 flex items-center space-x-2 
+                   bg-white/10 hover:bg-white/15 backdrop-blur-sm
+                   border border-white/20 rounded-full px-4 py-2 text-sm
+                   text-white transition-all duration-300 hover:scale-105
+                   shadow-lg hover:shadow-xl"
+      >
+        <LogOut className="w-4 h-4" />
+        <span className="font-medium">Logout</span>
+      </button>
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-10 -left-10 w-72 h-72 bg-cyan-400/20 rounded-full blur-xl animate-pulse"></div>
