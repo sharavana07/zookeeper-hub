@@ -11,9 +11,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { 
-  Utensils, 
-  User, 
-  Shield, 
+  Utensils, User,Shield, 
   Plus, 
   X, 
   ClipboardList, 
